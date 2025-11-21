@@ -94,7 +94,7 @@
                             <a href="#"  data-toggle="dropdown" >ABOUT US</a>
                         
                         </li>
-                        {{-- <li class="dropdown">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" >OBJECTIVES</a>
                             <ul class="dropdown-menu">
                                     <li><a href="/objectives" class="text-primary">ALL OBJECTIVES</a></li>
@@ -105,7 +105,7 @@
                                
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        {{-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" >SERVICES</a>
                             <ul class="dropdown-menu">
 
@@ -116,7 +116,7 @@
                               
                                 
                             </ul>
-                        </li> --}}
+                        </li>  --}}
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" >WHY CHOOSE</a>
                          
