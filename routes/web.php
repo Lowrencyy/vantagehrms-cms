@@ -1,42 +1,113 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HRController;
+use App\Http\Controllers\ObjectiveController;
+use App\Models\Objective;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /** for side bar menu active */
 function set_active($route) {
-    if (is_array($route )){
+    if (is_array($route)){
         return in_array(Request::path(), $route) ? 'active' : '';
     }
     return Request::path() == $route ? 'active' : '';
 }
+
 /** for side bar menu show */
 function set_show($route) {
-    if (is_array($route )){
+    if (is_array($route)){
         return in_array(Request::path(), $route) ? 'show' : '';
     }
     return Request::path() == $route ? 'show' : '';
 }
 
+
+// Public Routes
 Route::get('/', function () {
-    return view('auth.login');
+    $objectives = Objective::all(); // or ->latest()->get()
+    return view('landing.index', compact('objectives'));
 });
 
-Route::group(['middleware'=>'auth'],function()
-{
-    Route::get('home',function()
-    {
-        return view('dashboard.home');
-    });
-    Route::get('home',function()
-    {
-        return view('dashboard.home');
-    });
-});
-
+// Auth Routes
 Auth::routes();
 
-Route::group(['namespace' => 'App\Http\Controllers\Auth'],function()
-{
+// Authenticated Routes
+Route::group(['middleware'=>'auth'], function() {
+
+    // Home Dashboard
+    Route::get('home', function() {
+        return view('dashboard.home');
+    });
+
+    // User Account Details
+    Route::get('page/account/{user_id}', [AccountController::class, 'profileDetail']);
+
+    // HR Routes (Example: Employee Management, Leaves, etc.)
+    Route::middleware('auth')->prefix('hr/')->group(function () {
+        Route::controller(HRController::class)->group(function () {
+            Route::get('employee/list', 'employeeList')->name('hr/employee/list');
+            Route::post('employee/save', 'employeeSaveRecord')->name('hr/employee/save'); // save employee record
+            Route::post('employee/update', 'employeeUpdateRecord')->name('hr/employee/update'); // update employee record
+            Route::post('employee/delete', 'employeeDeleteRecord')->name('hr/employee/delete'); // delete employee record
+            
+            Route::get('holidays/page', 'holidayPage')->name('hr/holidays/page');
+            Route::post('holidays/save', 'holidaySaveRecord')->name('hr/holidays/save'); // save or update record
+            Route::post('holidays/delete', 'holidayDeleteRecord')->name('hr/holidays/delete'); // delete record
+            
+            Route::get('leave/employee/page', 'leaveEmployee')->name('hr/leave/employee/page');
+            Route::get('create/leave/employee/page', 'createLeaveEmployee')->name('hr/create/leave/employee/page');
+            Route::post('create/leave/employee/save', 'saveRecordLeave')->name('hr/create/leave/employee/save');
+            Route::get('view/detail/leave/employee/{staff_id}', 'viewDetailLeave');
+            
+            Route::get('leave/hr/page', 'leaveHR')->name('hr/leave/hr/page');
+            Route::get('attendance/page', 'attendance')->name('hr/attendance/page');
+            Route::get('create/leave/hr/page', 'createLeaveHR')->name('hr/create/leave/hr/page');
+
+            Route::post('get/information/leave', 'getInformationLeave')->name('hr/get/information/leave');
+        
+            Route::get('attendance/main/page', 'attendanceMain')->name('hr/attendance/main/page');
+            Route::get('department/page', 'department')->name('hr/department/page');
+            Route::post('department/save', 'saveRecorddepartment')->name('hr/department/save');
+            Route::post('department/delete', 'deleteRecorddepartment')->name('hr/department/delete');
+        });
+    });
+
+    // Admin Routes for Objectives CRUD
+
+
+});
+// objective route for admin CMS
+// Display the list of objectives
+
+// objective route for admin CMS
+
+// Display the list of objectives
+Route::get('/admin/objectives', [ObjectiveController::class, 'index'])->name('admin.objectives')->middleware('auth');
+
+// Show the form to create a new objective (MUST come BEFORE {id} routes)
+Route::get('/admin/objectives/create', [ObjectiveController::class, 'create'])->name('admin.objectives.create')->middleware('auth');
+
+// Store a new objective in the database
+Route::post('/admin/objectives', [ObjectiveController::class, 'store'])->name('admin.objectives.store')->middleware('auth');
+
+// Update an existing objective in the database
+Route::put('/admin/objectives/{id}', [ObjectiveController::class, 'update'])->name('admin.objectives.update')->middleware('auth');
+
+// Delete an existing objective
+Route::delete('/admin/objectives/{id}', [ObjectiveController::class, 'destroy'])->name('admin.objectives.destroy')->middleware('auth');
+
+// Note: No edit route needed since we're using modals in the blade file
+
+// Authentication Routes
+Route::group(['namespace' => 'App\Http\Controllers\Auth'],function() {
     // -----------------------------login----------------------------------------//
     Route::controller(LoginController::class)->group(function () {
         Route::get('/login', 'login')->name('login');
@@ -75,36 +146,4 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
     Route::controller(AccountController::class)->group(function () {
         Route::get('page/account/{user_id}', 'profileDetail')->middleware('auth');
     });
-
-    // -------------------------- hr ----------------------//
-    Route::middleware('auth')->prefix('hr/')->group(function () {
-        Route::controller(HRController::class)->group(function () {
-            Route::get('employee/list', 'employeeList')->name('hr/employee/list');
-            Route::post('employee/save', 'employeeSaveRecord')->name('hr/employee/save'); // save employee record
-            Route::post('employee/update', 'employeeUpdateRecord')->name('hr/employee/update'); // update employee record
-            Route::post('employee/delete', 'employeeDeleteRecord')->name('hr/employee/delete'); // delete employee record
-            
-            Route::get('holidays/page', 'holidayPage')->name('hr/holidays/page');
-            Route::post('holidays/save', 'holidaySaveRecord')->name('hr/holidays/save'); // save or update record
-            Route::post('holidays/delete', 'holidayDeleteRecord')->name('hr/holidays/delete'); // delete record
-            
-            Route::get('leave/employee/page', 'leaveEmployee')->name('hr/leave/employee/page');
-            Route::get('create/leave/employee/page', 'createLeaveEmployee')->name('hr/create/leave/employee/page');
-            Route::post('create/leave/employee/save', 'saveRecordLeave')->name('hr/create/leave/employee/save');
-            Route::get('view/detail/leave/employee/{staff_id}', 'viewDetailLeave');
-            
-            Route::get('leave/hr/page', 'leaveHR')->name('hr/leave/hr/page');
-            Route::get('attendance/page', 'attendance')->name('hr/attendance/page');
-            Route::get('create/leave/hr/page', 'createLeaveHR')->name('hr/create/leave/hr/page');
-
-            Route::post('get/information/leave', 'getInformationLeave')->name('hr/get/information/leave');
-        
-            Route::get('attendance/main/page', 'attendanceMain')->name('hr/attendance/main/page');
-            Route::get('department/page', 'department')->name('hr/department/page');
-            Route::post('department/save', 'saveRecorddepartment')->name('hr/department/save');
-            Route::post('department/delete', 'deleteRecorddepartment')->name('hr/department/delete');
-        });
-    });
 });
-
-
