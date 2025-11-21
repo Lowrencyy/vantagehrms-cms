@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeroBanner;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
+        $banner=HeroBanner::first();
+        return view('dashboard.home' , compact('banner'));
+
     }
 }

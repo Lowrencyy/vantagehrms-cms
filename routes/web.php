@@ -5,12 +5,15 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HRController;
 use App\Http\Controllers\ObjectiveController;
+use App\Models\HeroBanner;
 use App\Models\Objective;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 /** for side bar menu active */
@@ -33,7 +36,9 @@ function set_show($route) {
 // Public Routes
 Route::get('/', function () {
     $objectives = Objective::all(); // or ->latest()->get()
-    return view('landing.index', compact('objectives'));
+    $banner = HeroBanner::first(); // always only 1 banner record
+    return view('landing.index', compact('objectives' , 'banner'));
+
 });
 
 // Auth Routes
@@ -87,10 +92,26 @@ Route::group(['middleware'=>'auth'], function() {
 // objective route for admin CMS
 // Display the list of objectives
 
-// objective route for admin CMS
+
+#############################################################################################
+###########################  THIS IS THE ROUTE FOR CMS DASHBOARD ############################
+#############################################################################################
 
 // Display the list of objectives
 Route::get('/admin/objectives', [ObjectiveController::class, 'index'])->name('admin.objectives')->middleware('auth');
+
+// route for banner 
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/banner', [BannerController::class, 'index'])
+        ->name('admin.hero');
+
+    Route::put('/admin/banner/update', [BannerController::class, 'update'])
+        ->name('admin.hero.update');
+});
+
+
 
 // Show the form to create a new objective (MUST come BEFORE {id} routes)
 Route::get('/admin/objectives/create', [ObjectiveController::class, 'create'])->name('admin.objectives.create')->middleware('auth');

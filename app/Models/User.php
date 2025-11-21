@@ -74,7 +74,7 @@ class User extends Authenticatable
 
             do {
                 // Generate the new user_id
-                $model->user_id = 'KH-' . sprintf("%04s", $nextID++);
+                $model->user_id = 'VIT-' . sprintf("%04s", $nextID++);
             } while (self::where('user_id', $model->user_id)->exists());
         });
     }
