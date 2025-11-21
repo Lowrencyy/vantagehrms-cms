@@ -1,21 +1,25 @@
 <?php
 
-use App\Models\Objective;
-use App\Models\HeroBanner;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HRController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\MissionVisionController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HRController;
+use App\Http\Controllers\MissionVisionController;
+use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\WhyChooseController;
+use App\Models\HeroBanner;
 use App\Models\MissionVision;
+use App\Models\Objective;
+
+use App\Models\WhyChoose;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+
 
 /** for side bar menu active */
 function set_active($route) {
@@ -40,8 +44,9 @@ Route::get('/', function () {
     $objectives = Objective::all();
     $banner = HeroBanner::first();
     $mission = MissionVision::first(); // ← THIS IS WHAT YOU NEED
+    $why= WhyChoose::first();
 
-    return view('landing.index', compact('objectives', 'banner', 'mission'));
+    return view('landing.index', compact('objectives', 'banner', 'mission', 'why'));
 });
 
 
@@ -132,6 +137,22 @@ Route::get('/admin/mission-vision', [MissionVisionController::class, 'index'])
 Route::put('/admin/mission-vision/update', [MissionVisionController::class, 'update'])
     ->name('admin.mission.update')
     ->middleware('auth');
+
+    // why choose editable 
+
+Route::middleware('auth')->group(function () {
+
+    Route::prefix('admin')->group(function () {
+
+        Route::get('/whychoose', [WhyChooseController::class, 'index'])
+            ->name('admin.whychoose');
+
+        Route::put('/whychoose/update', [WhyChooseController::class, 'update'])
+            ->name('admin.whychoose.update');
+    });
+
+});
+
 
 
 

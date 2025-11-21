@@ -18,7 +18,7 @@
 
     @include('partials._objective')
     
-{{-- @include('partials._whychoose', ['why' => $why]) --}}
+@include('partials._whychoose')
 
     
     {{-- @include('partials._services') --}}
