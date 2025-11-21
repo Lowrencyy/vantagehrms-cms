@@ -35,18 +35,18 @@
             <div class="flex items-center justify-center px-5 text-center h-header group-data-[layout=horizontal]:hidden group-data-[sidebar-size=sm]:fixed group-data-[sidebar-size=sm]:top-0 group-data-[sidebar-size=sm]:bg-vertical-menu group-data-[sidebar-size=sm]:group-data-[sidebar=dark]:bg-vertical-menu-dark group-data-[sidebar-size=sm]:group-data-[sidebar=brand]:bg-vertical-menu-brand group-data-[sidebar-size=sm]:group-data-[sidebar=modern]:bg-gradient-to-br group-data-[sidebar-size=sm]:group-data-[sidebar=modern]:to-vertical-menu-to-modern group-data-[sidebar-size=sm]:group-data-[sidebar=modern]:from-vertical-menu-form-modern group-data-[sidebar-size=sm]:group-data-[sidebar=modern]:bg-vertical-menu-modern group-data-[sidebar-size=sm]:z-10 group-data-[sidebar-size=sm]:w-[calc(theme('spacing.vertical-menu-sm')_-_1px)] group-data-[sidebar-size=sm]:group-data-[sidebar=dark]:dark:bg-zink-700">
                 <a href="{{ route('home') }}" class="group-data-[sidebar=dark]:hidden group-data-[sidebar=brand]:hidden group-data-[sidebar=modern]:hidden">
                     <span class="hidden group-data-[sidebar-size=sm]:block">
-                        <img src="{{ URL::to('assets/images/logo.png') }}" alt="" class="h-6 mx-auto">
+                        <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class=" mx-auto">
                     </span>
                     <span class="group-data-[sidebar-size=sm]:hidden">
-                        <img src="{{ URL::to('assets/images/logo-dark.png') }}" alt="" class="h-6 mx-auto">
+                        <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class=" mx-auto">
                     </span>
                 </a>
                 <a href="{{ route('home') }}" class="hidden group-data-[sidebar=dark]:block group-data-[sidebar=brand]:block group-data-[sidebar=modern]:block">
                     <span class="hidden group-data-[sidebar-size=sm]:block">
-                        <img src="{{ URL::to('assets/images/logo.png') }}" alt="" class="h-6 mx-auto">
+                        <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                     </span>
                     <span class="group-data-[sidebar-size=sm]:hidden">
-                        <img src="{{ URL::to('assets/images/logo-light.png') }}" alt="" class="h-6 mx-auto">
+                        <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                     </span>
                 </a>
                 <button type="button" class="hidden p-0 float-end" id="vertical-hover">
@@ -70,18 +70,18 @@
                         <div class="items-center justify-center hidden px-5 text-center h-header group-data-[layout=horizontal]:md:flex group-data-[layout=horizontal]:ltr::pl-0 group-data-[layout=horizontal]:rtl:pr-0">
                             <a href="{{ route('home') }}">
                                 <span class="hidden">
-                                    <img src="{{ URL::to('assets/images/logo.png') }}" alt="" class="h-6 mx-auto">
+                                    <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                                 </span>
                                 <span class="group-data-[topbar=dark]:hidden group-data-[topbar=brand]:hidden">
-                                    <img src="{{ URL::to('assets/images/logo-dark.png') }}" alt="" class="h-6 mx-auto">
+                                    <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                                 </span>
                             </a>
                             <a href="{{ route('home') }}" class="hidden group-data-[topbar=dark]:block group-data-[topbar=brand]:block">
                                 <span class="group-data-[topbar=dark]:hidden group-data-[topbar=brand]:hidden">
-                                    <img src="{{ URL::to('assets/images/logo.png') }}" alt="" class="h-6 mx-auto">
+                                    <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                                 </span>
                                 <span class="group-data-[topbar=dark]:block group-data-[topbar=brand]:block">
-                                    <img src="{{ URL::to('assets/images/logo-light.png') }}" alt="" class="h-6 mx-auto">
+                                    <img src="{{ URL::to('main/assets/img/VIT.png') }}" alt="" class="h-6 mx-auto">
                                 </span>
                             </a>
                         </div>
@@ -216,7 +216,7 @@
                             </div>
         
                             <div class="relative items-center hidden h-header md:flex">
-                                <button data-drawer-target="customizerButton" type="button" class="inline-flex justify-center items-center p-0 text-topbar-item transition-all w-[37.5px] h-[37.5px] duration-200 ease-linear bg-topbar group-data-[topbar=dark]:text-topbar-item-dark rounded-md btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200">
+                                <button type="button" class="inline-flex justify-center items-center p-0 text-topbar-item transition-all w-[37.5px] h-[37.5px] duration-200 ease-linear bg-topbar group-data-[topbar=dark]:text-topbar-item-dark rounded-md btn hover:bg-topbar-item-bg-hover hover:text-topbar-item-hover group-data-[topbar=dark]:bg-topbar-dark group-data-[topbar=dark]:hover:bg-topbar-item-bg-hover-dark group-data-[topbar=dark]:hover:text-topbar-item-hover-dark group-data-[topbar=brand]:bg-topbar-brand group-data-[topbar=brand]:hover:bg-topbar-item-bg-hover-brand group-data-[topbar=brand]:hover:text-topbar-item-hover-brand group-data-[topbar=dark]:dark:bg-zink-700 group-data-[topbar=dark]:dark:hover:bg-zink-600 group-data-[topbar=brand]:text-topbar-item-brand group-data-[topbar=dark]:dark:hover:text-zink-50 group-data-[topbar=dark]:dark:text-zink-200">
                                     <i data-lucide="settings" class="inline-block w-5 h-5 stroke-1 fill-slate-100 group-data-[topbar=dark]:fill-topbar-item-bg-hover-dark group-data-[topbar=brand]:fill-topbar-item-bg-hover-brand"></i>
                                 </button>
                             </div>
